@@ -45,7 +45,7 @@ def split_data(fname):
 
 img_rows, img_cols = 57, 47
 nb_classes = 40
-(X_train, Y_train, X_valid, Y_valid, X_test, Y_test) = split_data('olivettifaces.pkl')
+(X_train, Y_train, X_valid, Y_valid, X_test, Y_test) = split_data('../../model/olivettifaces.pkl')
 X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols,1)
 X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols,1)
 print('X_train shape:', X_train.shape)
@@ -55,7 +55,7 @@ print(X_test.shape[0], 'test samples')
 Y_train = np_utils.to_categorical(Y_train, nb_classes)
 Y_test = np_utils.to_categorical(Y_test, nb_classes)
 
-model=load_model('model11.h5')
+model=load_model('../../model/model11.h5')
 score = model.evaluate(X_test, Y_test,  verbose=0)
 print('Test score:', score[0])
 print('Test accuracy:', score[1])

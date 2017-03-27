@@ -3,7 +3,7 @@
 #import cv2.cv as cv
 import cv
 
-img = cv.LoadImage("../../image/img_receive/liuyuanzhen_09.jpg");
+img = cv.LoadImage("../../image/friend1.jpg");
 
 image_size = cv.GetSize(img)  # 获取图片的大小
 greyscale = cv.CreateImage(image_size, 8, 1)  # 建立一个相同大小的灰度图像
