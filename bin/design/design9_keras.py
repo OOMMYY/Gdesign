@@ -97,12 +97,12 @@ def Net_model(lr=0.005, decay=1e-6, momentum=0.9):
 
 def train_model(model, X_train, Y_train, X_val, Y_val):
     model.fit(X_train, Y_train, batch_size=batch_size, nb_epoch=nb_epoch, verbose=1, validation_data=(X_val, Y_val))
-    model.save_weights('model_weights.h5', overwrite=True)
+    model.save_weights('../../model/model_weights.h5', overwrite=True)
     return model
 
 
 def test_model(model, X, Y):
-    model.load_weights('model_weights.h5')
+    model.load_weights('../../model/model_weights.h5')
     score = model.evaluate(X, Y, verbose=0)
     print('Test score:', score)
     print('Test accuracy:', score)
@@ -111,7 +111,7 @@ def test_model(model, X, Y):
 
 if __name__ == '__main__':
     # the data, shuffled and split between tran and test sets
-    (X_train, y_train), (X_val, y_val), (X_test, y_test) = load_data('olivettifaces.gif')
+    (X_train, y_train), (X_val, y_val), (X_test, y_test) = load_data('../../image/olivettifaces.gif')
 
     X_train = X_train.reshape(X_train.shape[0],img_rows, img_cols,1)
     X_val = X_val.reshape(X_val.shape[0], img_rows, img_cols,1)
@@ -130,7 +130,7 @@ if __name__ == '__main__':
     train_model(model,X_train,Y_train,X_val,Y_val)
     score=test_model(model,X_test,Y_test)
 
-    model.load_weights('model_weights.h5')
+    model.load_weights('../../model/model_weights.h5')
     classes = model.predict_classes(X_test, verbose=0)
     test_accuracy = numpy.mean(numpy.equal(y_test, classes))
     print("accuarcy:", test_accuracy)
