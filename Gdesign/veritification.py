@@ -10,7 +10,7 @@ from veri_show import veri_show
 def veritification():
     x=getPredict()
     y,prob = predict(x)
-    veri_show(y,prob)
+    return veri_show(y,prob)
 
 if __name__=='__main__':
     veritification()

@@ -1,15 +1,13 @@
 #coding:utf-8
 from django import forms 
+from django.shortcuts import render_to_response
+from django.shortcuts import render
+from veritification import  veritification
+import shutil
 
 class PictureForm(forms.Form):
     #图片
     imagefile=forms.ImageField()
-
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
-from django.shortcuts import render
-from django.views.decorators import csrf
-import sys
 
 def g0(request):
     return render_to_response('g0.html')
@@ -24,8 +22,12 @@ def recognize(request):
             for chunk in image.chunks():
                 Pic.write(chunk)
             Pic.close()
+    shutil.copyfile('static/images/upload.jpg','image/img_predict/predict.jpg')
+    name, presion = veritification()
+    shutil.copyfile('image/img_predict/minPredict.jpg','static/images/minPredict.jpg')
     data={}
-    print 'save upload.jpg'
-    data['image']="static/images/a.jpg"
-    #data['image'] = 'http://photocdn.sohu.com/20170409/Img487297770.jpeg'
+    data['name'] = name
+    data['presion'] = presion
+    data['image']="static/images/upload.jpg"
+    data['minPredict']='static/images/minPredict.jpg'
     return render(request,'g0.html',data)

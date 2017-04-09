@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^g0$',recognize.g0),
     url(r'^recognize$',recognize.recognize),
 ]
-#urlpatterns += staticfiles_urlpatterns()
+
 

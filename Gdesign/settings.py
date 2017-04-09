@@ -126,13 +126,8 @@ STATIC_ROOT = os.path.join(os.path.dirname(__file__),'collected_static')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    # ('css',os.path.join(STATIC_ROOT,'css').replace('\\','/')),
-    # ('js',os.path.join(STATIC_ROOT,'js').replace('\\','/')),
-    # ('images',os.path.join(STATIC_ROOT,'images').replace('\\','/')),
-    # ('upload',os.path.join(STATIC_ROOT,'upload').replace('\\','/')),
 )
-#这个是默认设置，Django 默认会在 STATICFILES_DIRS中的文件夹 和 各app下的static文件夹中找文件
-# 注意有先后顺序，找到了就不再继续找了
+
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
