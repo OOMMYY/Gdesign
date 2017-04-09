@@ -17,7 +17,8 @@ from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.optimizers import SGD
 from keras.utils import np_utils
-
+import codecs
+import json
 import time
 
 
@@ -74,9 +75,14 @@ def train(x,y):
     timeStamp=(long)(time.time())
     timeArray=time.localtime(timeStamp)
     TIME=time.strftime("%Y-%m-%d-%H:%M:%S",timeArray)
-    model.save('../model/model.'+TIME+'.h5',overwrite=True)
-    model.save('../model/model.h5',overwrite=True)
-    return model
+    model.save('model/model.'+TIME+'.h5',overwrite=True)
+    model.save('model/model.h5',overwrite=True)
+    # config = model.get_config()
+    # with codecs.open('model/model.'+TIME+'.h5','w','utf-8') as f:
+    #     json.dump(config,f)
+    # with codecs.open('model/model.h5','w','utf-8') as f:
+    #     json.dump(config,f)
+    # return model
 
 from getface import getface
 if __name__=='__main__':

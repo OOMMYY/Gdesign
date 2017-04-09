@@ -7,8 +7,8 @@ from cutface import cutface
 from xface import xface
 
 def getPredict():
-    source='../image/img_predict/predict.jpg'
-    target='../image/img_predict/minPredict.jpg'
+    source='image/img_predict/predict.jpg'
+    target='image/img_predict/minPredict.jpg'
     cutface(source,target)
     return xface(target)
 if __name__=='__main__':

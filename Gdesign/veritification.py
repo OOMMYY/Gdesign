@@ -13,4 +13,5 @@ def veritification():
     return veri_show(y,prob)
 
 if __name__=='__main__':
-    veritification()
+    y,prob = veritification()
+    print y,prob

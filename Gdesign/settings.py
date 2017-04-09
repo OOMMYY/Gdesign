@@ -1,3 +1,4 @@
+#!/usr/bin/env
 #coding:utf-8
 """
 Django settings for Gdesign project.

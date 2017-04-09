@@ -12,7 +12,7 @@ def cutface(source,target):
     cv.CvtColor(img,greyscale,cv.CV_BGR2GRAY)
     storage=cv.CreateMemStorage(0)
     cv.EqualizeHist(greyscale,greyscale)
-    cascade = cv.Load('../conf/haarcascade_frontalface_alt2.xml')
+    cascade = cv.Load('conf/haarcascade_frontalface_alt2.xml')
     #faces=cv.HaarDetectObjects(greyscale, cascade, storage, 1.2, 2,cv.CV_HAAR_DO_CANNY_PRUNING,(50, 50))
     faces=cv.HaarDetectObjects(greyscale, cascade, storage, 1.1,3,0,(50, 50))
     (x,y,w,h),n=faces[len(faces)-1]

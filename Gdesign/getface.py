@@ -11,10 +11,10 @@ import json
 import codecs
 
 def getface():
-    with open('../model/olivettifaces.pkl','rb') as f:
+    with open('model/olivettifaces.pkl','rb') as f:
         oliverface,oliverlabel=cPickle.load(f)
     #从base中读入人脸数据
-    source='../image/base/'
+    source='image/base/'
     foders=listdir(source)
     pic=[]
     label=[]
@@ -27,7 +27,7 @@ def getface():
             path =source+foder+'/'+name
             pic.append(path)
             label.append(40+i)
-    with codecs.open('../conf/NameMap.cnf','w','utf-8') as f:
+    with codecs.open('conf/NameMap.cnf','w','utf-8') as f:
         json.dump(dic,f,ensure_ascii=False)
     n=len(pic)
     length=57*47

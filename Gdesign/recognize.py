@@ -1,9 +1,12 @@
+#!/usr/bin/env
 #coding:utf-8
 from django import forms 
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from veritification import  veritification
+from authtication import authtification
 import shutil
+import traceback
 
 class PictureForm(forms.Form):
     #图片
@@ -23,7 +26,13 @@ def recognize(request):
                 Pic.write(chunk)
             Pic.close()
     shutil.copyfile('static/images/upload.jpg','image/img_predict/predict.jpg')
-    name, presion = veritification()
+    name = 'unknown'
+    presion = 0.0
+    try:
+        #authtification()
+        name, presion = veritification()
+    except:
+        print traceback.format_exc()
     shutil.copyfile('image/img_predict/minPredict.jpg','static/images/minPredict.jpg')
     data={}
     data['name'] = name

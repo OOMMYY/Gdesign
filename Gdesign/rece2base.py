@@ -10,13 +10,13 @@ from cutface import cutface
 
 #入库前先清除原有数据
 def rece2base():
-    source='../image/img_receive'
+    source='image/img_receive'
     name='received'
     names=listdir(source)
     if len(names)<10:
         return False
     name=names[0].encode('utf-8').split('_')[0]
-    target='../image/base/'+name
+    target='image/base/'+name
     if os.path.exists(target):
         shutil.rmtree(target)
     os.makedirs(target)
