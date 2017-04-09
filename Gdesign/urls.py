@@ -17,16 +17,12 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import staticfiles
 from django.conf.urls import url
 from django.contrib import admin
-from . import view,search,search2,recognize
+from . import recognize
  
 urlpatterns = [
-    url(r'^$', view.hello),
     url(r'^admin/', admin.site.urls),
-    url(r'^search-form$', search.search_form),
-    url(r'^search-post$',search2.search_post),
-    url(r'^search$', search.search),
     url(r'^g0$',recognize.g0),
     url(r'^recognize$',recognize.recognize),
 ]
-urlpatterns += staticfiles_urlpatterns()
+#urlpatterns += staticfiles_urlpatterns()
 
