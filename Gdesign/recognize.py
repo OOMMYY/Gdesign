@@ -6,6 +6,7 @@ from django.shortcuts import render
 from veritification import  veritification
 from authtication import authtification
 import shutil
+import tensorflow as tf
 import traceback
 
 class PictureForm(forms.Form):
@@ -29,8 +30,9 @@ def recognize(request):
     name = 'unknown'
     presion = 0.0
     try:
-        #authtification()
-        name, presion = veritification()
+        with tf.Session():
+            #authtification()
+            name, presion = veritification()
     except:
         print traceback.format_exc()
     shutil.copyfile('image/img_predict/minPredict.jpg','static/images/minPredict.jpg')

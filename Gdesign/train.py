@@ -75,8 +75,14 @@ def train(x,y):
     timeStamp=(long)(time.time())
     timeArray=time.localtime(timeStamp)
     TIME=time.strftime("%Y-%m-%d-%H:%M:%S",timeArray)
-    model.save('model/model.'+TIME+'.h5',overwrite=True)
-    model.save('model/model.h5',overwrite=True)
+    # model.save('model/model.'+TIME+'.h5',overwrite=True)
+    # model.save('model/model.h5',overwrite=True)
+    model_json = model.to_json()
+    with open("model/model.json", "w") as json_file:
+        json_file.write(model_json)
+    # serialize weights to HDF5
+    model.save_weights("model/model.h5")
+    print("Saved model to disk")
     # config = model.get_config()
     # with codecs.open('model/model.'+TIME+'.h5','w','utf-8') as f:
     #     json.dump(config,f)
