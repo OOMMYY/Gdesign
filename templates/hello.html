@@ -1,6 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>upload file</title>
+<style type="text/css">
+#drop_zone{width:600px;height:100px;background:#f1f1f1;}
+#result{color:#f60;}
+</style>
+</head>
+<body>
+<h1>upload files demo</small></h1>
+<p>sae系统限制仅支持 &lt;10M 文件上传</p>
+<!-- <h3>Note:file size<10M</h3> -->
 
-{% extends "base.html" %}
-<h1>{{ hello }}</h1>
-{% block mainbody %}
-<p>继承了 base.html 文件</p>
-{% endblock %}
+<h2>1.form upload</h2>
+<fieldset>
+    <legend>1.1 upload by form</legend>
+    <form id="upload" action="upload_fles.php" method="post" enctype="multipart/form-data">
+        normal file
+        <input type="file" id="files" name="files[]"  multiple="multiple"/>
+        <br />
+        <button type="submit">Upload Files</button>
+    </form>
+</fieldset>
+<br />
+
+<fieldset>
+    <legend>1.2 upload by webkitdirectory (option folder)</legend>
+    <form id="upload" action="upload_fles.php" method="post" enctype="multipart/form-data">
+        webkitdirectory (broswer support : chrome 11.0 +) <br />
+        <input type="file" id="files" name="files[]"  webkitdirectory/>
+        <br />
+        <button type="submit">Upload Files</button>
+    </form>
+</fieldset>
+<br />
+<fieldset>
+    <legend>1.3 <a href="upload_by_iframe_post_form.html">upload by iframe post form</a> (<a href="upload_by_iframe_post_form_jquery.html">jQuery version</a>)</legend>
+    <form target="iframePostForm" id="upload" action="upload_fles.php" method="post" enctype="multipart/form-data">
+        <input type="file" id="files" name="files[]"  multiple="multiple"/>
+        <br />
+        <button type="submit">Upload Files by iframe </button>
+    </form>
+    <iframe name="iframePostForm" onload="iframePostFormOnload(this);" style="display:none;"></iframe>
+    <p><strong>result</strong></p>
+    <ul id="uploadResult">
+    </ul>
+    <script type="text/javascript">
+		function iframePostFormOnload(iframe){
+			var doc = iframe.contentWindow.document;
+			var html = doc.body.innerHTML;
+			document.getElementById('uploadResult').innerHTML = html;
+		}
+	</script>
+</fieldset>
+
+<h2>2 drop upload</h2>
+<fieldset>
+	<h3>2.1 drop zone</h3>
+	<div id="drop_zone" style=""> drop files here </div>
+	<h3>2.2 file list</h3>
+	<output id="list"></output>
+	<h3>2.3 upload result</h3>
+	<ul id="result">
+	</ul>
+	<h3>2.4 broswer support</h3>
+	<ul>
+		<li>chrome 6.0 +</li>
+		<li>firefox 3.6.20+</li>
+	</ul>
+</fieldset>
+
+
+<script type="text/javascript">
+var dragFilesUpload = {
+	init:function(){
+		this.support(); 
+	},
+	support:function(){
+		//window.File && window.FileReader && window.FileList && window.Blob
+		//window.Blob firefox3.6.20不支持
+		if (window.FileReader) {
+			return true;	
+		}else{
+			alert('你的浏览器暂时不支持拖拽上传 :( ');
+			return false;
+		} 
+	}
+}
+// getElementById
+function $id(id) {
+	return document.getElementById(id);
+}
+function handleFileSelect(evt){
+	//阻止默认事件
+	evt.stopPropagation();
+	evt.preventDefault();
+	
+	 var files = evt.dataTransfer.files;//
+	 var output = [];
+	 for (var i=0,f;f=files[i];i++){
+		
+		output.push(
+		'<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+			f.size,' bytes',
+//			f.lastModifiedDate.toLocaleDateString(),
+		'</li>'
+		);
+		uploadFile(f);
+	 }
+	 document.getElementById('list').innerHTML = '<ul>'  +output.join('')+'</ul>';
+}
+//上传文件
+function uploadFile(file){
+	var xhr = new XMLHttpRequest();
+	if (xhr.upload){
+		//star upload
+		xhr.open("POST", $id("upload").action, true);
+		xhr.setRequestHeader("FILENAME", file.name);
+		// file received/failed
+		xhr.onreadystatechange = function(e) {
+			if (xhr.readyState == 4) {
+				var stat = xhr.status;
+				if ((stat >= 200 && stat < 300) || stat == 304 ) {
+					var txt = xhr.responseText;
+					var result = $id('result').appendChild(document.createElement("li"));
+					result.appendChild(document.createTextNode(file.name+' 下载地址: '+txt));
+				}
+				else {
+					alert('fail');
+				}
+			}
+		};
+		xhr.send(file);
+	}
+}
+function handleDragEnter(evt){ 
+	this.setAttribute('style', 'background:#f60;'); 
+}
+function handleDragOver(evt){
+	 evt.stopPropagation();
+	 evt.preventDefault();
+	 //evt.dataTransfer.dropEffect = 'copy';
+}
+function handleDragLeave(evt){ 
+	this.setAttribute('style', 'background:#f1f1f1;');
+}
+var dropZone = document.getElementById('drop_zone');
+dropZone.addEventListener('dragenter', handleDragEnter, false);
+dropZone.addEventListener('dragover',handleDragOver,false)
+dropZone.addEventListener('drop',handleFileSelect,false);
+dropZone.addEventListener('dragleave', handleDragLeave, false);
+window.onload = function(){
+//	dragFilesUpload.init(); 
+//	document.getElementById('files').addEventListener('change',handleFileSelect1,false);
+}
+</script>
+
+</body>
+</html>

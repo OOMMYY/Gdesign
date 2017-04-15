@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <title>auth</title>
+    <style>
+        * {
+            box-sizing:border-box;
+        }
+        .img{
+            height:75px;
+            border: 1px solid #000;
+            margin: 10px 5px 0 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron">
+    <h1>人脸认证</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+        <form id = 'upload' action="/backend_preview" method="post" enctype="multipart/form-data" >
+            <input type="file" id="files" name="files" multiple  />
+            <input type="text"  name ='test' value="test">
+            <input type = 'submit' id='preview' value="预览" >
+        </form>
+        <input type = 'submit' id='auth' value="提交认证" >
+            <output id="list"></output>
+        <script>
+        function handleFileSelect(evt){
+            var files = evt.target.files;
+            for (var i=0 , f; f = files[i]; i++ ){
+                if(!f.type.match('image.*')){
+                    continue;
+                }
+                var reader = new FileReader();
+                reader.onload = (function(theFile){
+                    return function(e){
+                        var span = document.createElement('span');
+                        span.innerHTML = ['<img class = "img" src="',e.target.result,'" title="',escape(theFile.name),'"/>'].join('');
+                        document.getElementById('list').insertBefore(span,null);
+                    };
+                })(f);
+                reader.readAsDataURL(f);
+            }
+        }
+        document.getElementById('files').addEventListener('change',handleFileSelect,false);
+    </script>
+    </div>
+    <div class="col-sm-4">
+     ...
+    </div>
+    <div class="col-sm-4">
+    ...
+    </div>
+  </div>
+</div>
+</body>
+</html>
