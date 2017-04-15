@@ -7,6 +7,7 @@ from veritification import  veritification
 import shutil
 import tensorflow as tf
 import traceback
+import os
 
 class PictureForm(forms.Form):
     #图片
@@ -30,10 +31,10 @@ def recognize(request):
     presion = 0.0
     try:
         with tf.Session():
-            #authtification()
             name, presion = veritification()
     except:
         print traceback.format_exc()
+    os.remove('static/images/minPredict.jpg')
     shutil.copyfile('image/img_predict/minPredict.jpg','static/images/minPredict.jpg')
     data={}
     data['name'] = name
