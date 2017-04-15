@@ -1,10 +1,9 @@
-#!/usr/bin/env
+#!/usr/bin/env python
 #coding:utf-8
 from django import forms 
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from veritification import  veritification
-from authtication import authtification
 import shutil
 import tensorflow as tf
 import traceback

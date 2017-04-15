@@ -22,16 +22,20 @@
 <div class="container">
   <div class="jumbotron">
     <h1>人脸认证</h1>
+      <a href="/g0">人脸识别</a>
   </div>
   <div class="row">
+      <div class="col-sm-4">
+     请选择10张自己的照片用于数据库认证！否则系统将拒绝认证。
+    </div>
     <div class="col-sm-4">
         <form id = 'upload' action="/backend_preview" method="post" enctype="multipart/form-data" >
-            <input type="file" id="files" name="files" multiple  />
-            <input type="text"  name ='test' value="test">
+            上传10张认证照片：<input type="file" id="files" name="files" multiple  />
+                    <output id="list"></output>
+            <br>
+            姓名：<input type="text"  name ='test' value="张三">
             <input type = 'submit' id='preview' value="预览" >
         </form>
-        <input type = 'submit' id='auth' value="提交认证" >
-            <output id="list"></output>
         <script>
         function handleFileSelect(evt){
             var files = evt.target.files;
@@ -51,13 +55,27 @@
             }
         }
         document.getElementById('files').addEventListener('change',handleFileSelect,false);
-    </script>
+        </script>
+        <div>
+            {% for each in preview %}
+            <img class = 'img' src="{{each}}">
+            {% endfor %}
+            <h1> {{name}} </h1>
+            {%  if preview %}
+                    <form id ='auth' action='backend_auth' method="post">
+                    <input type = 'submit' id='auth_commit' value="提交认证" >
+                    <script>
+                        document.getElementById('auth_commit').addEventListener("click",showAuthStatus)
+                        function showAuthStatus() {
+                            document.getElementById('auth_out').innerHTML = "认证会持续数分钟，请稍等。<br>正在认证..."
+                        }
+                    </script>
+                    </form>
+            {%  endif %}
+        </div>
     </div>
-    <div class="col-sm-4">
-     ...
-    </div>
-    <div class="col-sm-4">
-    ...
+    <div class="col-sm-4" id="auth_out">
+    {{auth_status}}
     </div>
   </div>
 </div>

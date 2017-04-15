@@ -4,26 +4,29 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<title>人脸认证／验证系统</title>
 	<style>
 	body{
-		background-color:#DEFEDE;
+		/*background-color:#DEFEDE;*/
 	}
 	h1{
 		color:orange;
-		text-align:center;
+		/*text-align:center;*/
 	}
-	div{
+	div.outer{
 		margin-left:auto;
 		margin-right:auto;
 		width:400px;
 		height: 300px;
-		background-color:#66FFFF;
 		text-align: center;
 	}
 	div.img{
-		margin-top:200px;
+		/*margin-top:200px;*/
 		background-image:url("static/images/cover.png");
+		background-size: 100%;
 	}
 	button{
 		height: 3em;
@@ -47,6 +50,7 @@
 	}
 	div.inner{
 		height: 110px;
+		background-color:#66FFFF;
 	}
 	div.minimg{
 		float:left;
@@ -81,6 +85,11 @@
 	</script>
 </head>
 <body>
+<div class="container">
+  <div class="jumbotron">
+    <h1>人脸识别</h1>
+      <a href="/backend">认证系统</a>
+  </div>
 <div class="outer">
 	<div class="img">
 		<a target="_blank" href="#">

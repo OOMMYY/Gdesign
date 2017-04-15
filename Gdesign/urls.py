@@ -19,12 +19,16 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import staticfiles
 from django.conf.urls import url
 from django.contrib import admin
-from . import recognize
+from . import recognize,backend,view
  
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^g0$',recognize.g0),
     url(r'^recognize$',recognize.recognize),
+    url(r'^backend$',backend.menu),
+    url(r'^backend_preview',backend.preview),
+    url(r'^backend_auth',backend.auth),
+    url(r'^$',view.hello)
 ]
 
 
