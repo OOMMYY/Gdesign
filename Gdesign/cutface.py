@@ -4,8 +4,23 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import cv
+import PIL.ExifTags as ExifTags
 
 def cutface(source,target):
+    img = Image.open(source)
+    exif=dict((ExifTags.TAGS[k], v) for k, v in img._getexif().items() if k in ExifTags.TAGS)
+    if 'Orientation' in exif :
+        tag =(int)(exif['Orientation'])
+         print tag,'Orientation'
+        if tag == 5 or tag == 6:
+            img = img.rotate(-90 , expand = True)
+        if tag == 3 or tag == 4:
+            img = img.rotate(180 , expand = True)
+        if tag == 7 or tag == 8:
+            img = img.rotate(90 , expand = True)
+    #img = img.resize((96,128),Image.ANTIALIAS)
+    img.save('static/images/tmp.jpeg')
+    img = cv.LoadImage('static/images/tmp.jpeg');
     img=cv.LoadImage(source)
     image_size=cv.GetSize(img)
     greyscale=cv.CreateImage(image_size,8,1)
