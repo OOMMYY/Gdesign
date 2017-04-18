@@ -4,6 +4,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import cv
+from PIL import Image
 import PIL.ExifTags as ExifTags
 
 def cutface(source,target):
@@ -11,7 +12,7 @@ def cutface(source,target):
     exif=dict((ExifTags.TAGS[k], v) for k, v in img._getexif().items() if k in ExifTags.TAGS)
     if 'Orientation' in exif :
         tag =(int)(exif['Orientation'])
-         print tag,'Orientation'
+        print tag,'Orientation'
         if tag == 5 or tag == 6:
             img = img.rotate(-90 , expand = True)
         if tag == 3 or tag == 4:
@@ -21,7 +22,7 @@ def cutface(source,target):
     #img = img.resize((96,128),Image.ANTIALIAS)
     img.save('static/images/tmp.jpeg')
     img = cv.LoadImage('static/images/tmp.jpeg');
-    img=cv.LoadImage(source)
+    img=cv.LoadImage('static/images/tmp.jpeg')
     image_size=cv.GetSize(img)
     greyscale=cv.CreateImage(image_size,8,1)
     cv.CvtColor(img,greyscale,cv.CV_BGR2GRAY)
