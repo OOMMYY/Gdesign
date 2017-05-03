@@ -9,7 +9,10 @@ import PIL.ExifTags as ExifTags
 
 def cutface(source,target):
     img = Image.open(source)
-    exif=dict((ExifTags.TAGS[k], v) for k, v in img._getexif().items() if k in ExifTags.TAGS)
+    if img._getexif() is  None:
+        exif = {}
+    else:
+        exif=dict((ExifTags.TAGS[k], v) for k, v in img._getexif().items() if k in ExifTags.TAGS)
     if 'Orientation' in exif :
         tag =(int)(exif['Orientation'])
         print tag,'Orientation'
